@@ -5,6 +5,7 @@ pluginManagement {
                 includeGroupByRegex("com\\.android.*")
                 includeGroupByRegex("com\\.google.*")
                 includeGroupByRegex("androidx.*")
+                maven { setUrl("https://jitpack.io") }
             }
         }
         mavenCentral()
@@ -16,9 +17,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { setUrl("https://jitpack.io") }
     }
 }
 
 rootProject.name = "To-Do"
 include(":app")
- 
