@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
+    implementation("com.google.android.material:material:<version>")
+
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.github.prolificinteractive:material-calendarview:2.0.0")
 }

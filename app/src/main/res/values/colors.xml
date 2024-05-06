@@ -4,8 +4,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background_color">#DEEBDA</color>
     <color name="blue_app_color">#5D9BEB</color>
-    <color name="text_color">#FEFEFE</color>
+    <color name="text_color">#060E1E</color>
+    <color name="text_color_1">#FEFEFE</color>
     <color name="btn_nav_color">#FEFEFE</color>
     <color name="item_color">#BEBFC1</color>
     <color name="transparent">#00000000</color>
+    <color name="gray">#808080</color>
+
 </resources>

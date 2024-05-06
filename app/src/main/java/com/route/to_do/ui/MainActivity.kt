@@ -1,35 +1,58 @@
 package com.route.to_do.ui
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.route.to_do.OnTaskAddedListener
 import com.route.to_do.R
 import com.route.to_do.databinding.ActivityMainBinding
+import com.route.to_do.fragments.AddTaskBottomSheet
+import com.route.to_do.fragments.SettingsFragment
 import com.route.to_do.fragments.TaskFragment
 
+
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
+    lateinit var taskListFragment: TaskFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initFragment()
+        binding.addFloatingActionButton.setOnClickListener {
+            val addTaskBottomSheet = AddTaskBottomSheet()
+            addTaskBottomSheet.onTaskAddedListener = object : OnTaskAddedListener{
+                override fun onTaskAdded() {
+                    taskListFragment.backTask()
+                    taskListFragment.backTask2()
+                }
+            }
+            addTaskBottomSheet.show(supportFragmentManager, null)
+        }
+        chooseFragment()
     }
 
-    private fun initFragment() {
-        binding.content.btnNav.setOnItemSelectedListener {
-            when (it.itemId){
-                R.id.task_nav -> { pushFragment(TaskFragment()) }
+    private fun chooseFragment() {
+        binding.btnNav.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.task_nav -> {
+                    taskListFragment = TaskFragment()
+                    pushFragment(taskListFragment)
+                    binding.appBarTitle.text="Tasks List"
+                }
+                R.id.setting_nav -> {
+                    pushFragment(SettingsFragment())
+                    binding.appBarTitle.text="Setting"
+                }
+
             }
             true
         }
-        binding.content.btnNav.selectedItemId = R.id.task_nav
+        binding.btnNav.selectedItemId = R.id.task_nav
     }
 
+
     private fun pushFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.fragment_container,fragment).commit()
+        supportFragmentManager.beginTransaction().addToBackStack(null)
+            .replace(R.id.fragment_container,fragment).commit()
     }
 }
